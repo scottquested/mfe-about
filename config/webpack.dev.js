@@ -13,13 +13,17 @@ const devConfig = {
 		port: 3002,
 		historyApiFallback: {
 			index: "/index.html",
+			hot: true,
+			headers: { "Access-Control-Allow-Origin": "*" },
 		},
 	},
 	plugins: [
 		new ModuleFederationPlugin({
 			name: "mfe_about",
 			filename: "remoteEntry.js",
-			remotes: {},
+			remotes: {
+				components: "mfe_components@http://localhost:3004/remoteEntry.js",
+			},
 			exposes: {
 				"./About": "./src/bootstrap",
 			},
